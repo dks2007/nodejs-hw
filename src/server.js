@@ -15,8 +15,8 @@ app.get('/notes', (req, res) => {
 });
 
 app.get('/notes/:noteId', (req, res) => {
-  const { nodeId } = req.params;
-  res.status(200).json({ message: `Retrieved note with ID: ${nodeId}` });
+  const { noteId } = req.params;
+  res.status(200).json({ message: `Retrieved note with ID: ${noteId}` });
 });
 
 app.get('/test-error', () => {
