@@ -23,11 +23,6 @@ const startServer = async () => {
   app.use(errors());
   app.use(errorHandler);
 
-  app.use((err, req, res, next) => {
-    const status = err.status ?? 500;
-    res.status(status).json({ message: err.message });
-  });
-
   const PORT = process.env.PORT ?? 3000;
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 };
