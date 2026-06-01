@@ -1,3 +1,5 @@
+// src/constants/tags.js
+
 export const TAGS = [
   'Work',
   'Personal',
