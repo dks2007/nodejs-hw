@@ -3,13 +3,15 @@ import express from 'express';
 import { errors } from 'celebrate';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+
 import { connectMongoDB } from './db/connectMongoDB.js';
 import { logger } from './middleware/logger.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { errorHandler } from './middleware/errorHandler.js';
+
+import userRoutes from './routes/userRoutes.js';
 import notesRoutes from './routes/notesRoutes.js';
 import authRoutes from './routes/authRoutes.js';
-import { authenticate } from './middleware/authenticate.js';
 
 const startServer = async () => {
   await connectMongoDB();
@@ -21,8 +23,9 @@ const startServer = async () => {
   app.use(cors({ credentials: true, origin: process.env.FRONTEND_URL || '*' }));
   app.use(cookieParser());
 
-  app.use('/auth', authRoutes);
-  app.use('/notes', authenticate, notesRoutes);
+  app.use(userRoutes);
+  app.use(notesRoutes);
+  app.use(authRoutes);
 
   app.use(notFoundHandler);
   app.use(errors());
